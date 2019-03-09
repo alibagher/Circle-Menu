@@ -10,8 +10,8 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javax.swing.*;
 
-public class Main extends JFrame implements ClipboardOwner {
-
+public class Main extends JFrame {
+/*
     JTextArea text;
     static String STARTING_STRING = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
             "empor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation " +
@@ -33,6 +33,9 @@ public class Main extends JFrame implements ClipboardOwner {
             "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in " +
             "voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non " +
             "proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n";
+            */
+
+/*
 
     // popup menu widget
     class PopUpDemo extends JPopupMenu {
@@ -110,7 +113,9 @@ public class Main extends JFrame implements ClipboardOwner {
         }
 
     }
+    */
 
+/*
     // popup menu listener
     class PopClickListener extends MouseAdapter {
         public void mousePressed(MouseEvent e){
@@ -124,19 +129,20 @@ public class Main extends JFrame implements ClipboardOwner {
         }
 
         private void doPop(MouseEvent e){
-            PopUpDemo menu = new PopUpDemo();
+            model.PopUpDemo menu = new PopUpDemo();
             menu.show(e.getComponent(), e.getX(), e.getY());
         }
     }
-
+    */
+/*
     // functionality
     private void doNew() {
         text.setForeground(Color.BLACK);
         text.setBackground(Color.WHITE);
         text.setText(STARTING_STRING);
-    }
+    }*/
 
-    private void doCopy() {
+    /*private void doCopy() {
 
         // Get the system clipboard
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -174,8 +180,9 @@ public class Main extends JFrame implements ClipboardOwner {
         //       As such, this object must implement the ClipboardOwner interface
         System.out.println("COPY: set system clipboard to Transferable");
         cb.setContents(transferObject, this);
-    }
+    }*/
 
+    /*
     private void doPaste() {
 
         // Grab system clipboard
@@ -203,20 +210,24 @@ public class Main extends JFrame implements ClipboardOwner {
             System.out.println("DataFlavor.stringFlavor NOT available");
         }
     }
+    */
 
+    /*
     // required for clipboard management
     public void lostOwnership(Clipboard clipboard, Transferable contents) {
         System.out.println("Lost clipboard ownership");
     }
+    */
 
     // main entry point
     public Main() {
         // setup window and test area
+
         setTitle("A3: Marking Menu");
         setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+/*
         text = new JTextArea(STARTING_STRING);
         text.setMargin(new Insets(5, 5, 5, 5));
         text.setFont(new Font("Serif", Font.PLAIN, 16));
@@ -224,9 +235,28 @@ public class Main extends JFrame implements ClipboardOwner {
         text.setEditable(true);
         text.setRequestFocusEnabled(true);
         text.addMouseListener(new PopClickListener());
+        */
 
-        JScrollPane scroller = new JScrollPane(text);
+        // create Model and initialize it
+        Model model = new Model();
+
+        // create View, tell it about model (and controller)
+        View view = new View(model);
+        // tell Model about View.
+        model.addObserver(view);
+
+        // let all the views know that they're connected to the model
+        model.notifyObservers();
+
+        JScrollPane scroller = new JScrollPane(view.text);
         setContentPane(scroller);
+
+        // create a layout panel to hold the two views
+        //JPanel p = new JPanel(new GridLayout(1,1));
+        getContentPane().add(view);
+
+        // add views (each view is a JPanel)
+        //p.add(view);
     }
 
 
