@@ -242,6 +242,8 @@ public class Main extends JFrame {
 
         // create View, tell it about model (and controller)
         View view = new View(model);
+        view.getxx(getX());
+        view.getyy(getY());
         // tell Model about View.
         model.addObserver(view);
 

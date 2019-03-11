@@ -19,12 +19,25 @@ import java.io.IOException;
 class View extends JPanel implements Observer, ClipboardOwner{
 
     // the view's main user interface
-   // private JButton button;
+    // private JButton button;
 
     // the model that this view is showing
     private Model model;
 
     JTextArea text;
+    int wy;
+    int wx;
+
+    void getyy(int y){
+        wy=y;
+    }
+    void getxx(int x){
+        wx=x;
+    }
+
+    int setyy(){
+        return wy;
+    }
 
     View(Model model) {
         //System.out.println("hello");
@@ -133,7 +146,7 @@ class View extends JPanel implements Observer, ClipboardOwner{
 
 
     // popup menu widget
-    class PopUpDemo extends JPopupMenu {
+    class PopUpDemo extends MarkingMenu {
 
         public PopUpDemo(){
             // file
